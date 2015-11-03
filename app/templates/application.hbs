@@ -1,4 +1,7 @@
-{{#body-area mouseMoved='mouseMoved'}}
-  <span>{{mouseX}}, {{mouseY}}</span>
+{{#body-area mouseMoved='mouseMoved' windowResized='windowResized'}}
+  <span>X: {{mouseX}}px</span><br>
+  <span>Y: {{mouseY}}px</span><br>
+  <span>Window Width: {{windowWidth}}px</span><br>
+  <span>Window Height: {{windowHeight}}px</span>
   {{outlet}}
 {{/body-area}}
