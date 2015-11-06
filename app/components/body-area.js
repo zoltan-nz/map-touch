@@ -1,49 +1,56 @@
 import Ember from 'ember';
 
+const { $, computed, Handlebars } = Ember;
+
 export default Ember.Component.extend({
 
+  /*
+   * Because of inside style, we need the following in the `config/environment.js`
+   *   ```
+   *   contentSecurityPolicy: {
+   *     'style-src': "'self' 'unsafe-inline'"
+   *   },
+   *   ```
+   */
   attributeBindings: ['style'],
-
   classNames: ['grey-background'],
 
-  ___resizeFunction : null,
+  width: 0,
+  height: 0,
 
-  style: Ember.computed('windowWidth', 'windowHeight', function () {
-    let width = this.get('windowWidth');
-    let height = this.get('windowHeight');
+  init(...args) {
+    // This is mandatory during initialization of Component.
+    this._super(...args);
 
+    // Setup the default size.
+    this._updateSize();
+
+    // Watching debounce resize event.
+    // Doc: https://github.com/mike-north/ember-resize
+    this.get('resizeService').on('debouncedDidResize', (/*event*/) => {
+      this._updateSize();
+    });
+
+  },
+
+  style: computed('width', 'height', function () {
+    let width = this.get('width');
+    let height = this.get('height');
+
+    // We can use this action for sending information about window size.
     this.sendAction('windowResized', width, height);
 
     // http://emberjs.com/deprecations/v1.x/#toc_binding-style-attributes
-    return new Ember.Handlebars.SafeString(`width: ${width}px; height: ${height}px`);
+    return new Handlebars.SafeString(`width: ${width}px; height: ${height}px`);
   }),
 
-  windowWidth: Ember.computed('', function () {
-    return Ember.$(window).width();
-  }),
-
-  windowHeight: Ember.computed('', function () {
-    return Ember.$(window).height();
-  }),
-
-  windowResized: Ember.computed('windowWidth', 'windowHeight', function() {
-    debugger;
-    return this.sendAction('windowResized', this.get('windowWidth'), this.get('windowHeight'));
-  }),
-
-  init(...args) {
-    this._super(...args);
-    Ember.$(window).on('resize', function(e) {
-      this.windowChanged().notifyPropertyChange();
-      this.get('style');
-    }.bind(this) );
-  },
-
-  windowChanged: Ember.observer('windowHeight', 'windowWidth', function() {
-    this.get('style');
-  }),
+  // ** EVENTS **
 
   click(e) {
+    let x = e.clientX;
+    let y = e.clientY;
+
+    console.log('clicked:', x, y);
   },
 
   mouseMove(e) {
@@ -55,7 +62,7 @@ export default Ember.Component.extend({
 
   touchMove(e) {
     let x = e.originalEvent.touches[0].clientX;
-    let y =e.originalEvent.touches[0].clientY;
+    let y = e.originalEvent.touches[0].clientY;
 
     this.sendAction('mouseMoved', x, y);
   },
@@ -66,6 +73,11 @@ export default Ember.Component.extend({
 
   touchEnd(e) {
     console.log('touch end', e);
-  }
+  },
 
+  _updateSize() {
+    // jQuery gives more accurate size.
+    this.set('width', $(window).width());
+    this.set('height', $(window).height());
+  },
 });
