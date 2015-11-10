@@ -1,0 +1,13 @@
+@import "bootstrap";
+
+html {
+  overflow-y: scroll;
+}
+
+.drawing-area {
+  background-color: $gray-lighter;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -10;
+}

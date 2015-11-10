@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { $, computed, Handlebars } = Ember;
+const { $, computed, Handlebars, run } = Ember;
 
 export default Ember.Component.extend({
 
@@ -13,7 +13,7 @@ export default Ember.Component.extend({
    *   ```
    */
   attributeBindings: ['style'],
-  classNames: ['grey-background'],
+  classNames: ['drawing-area'],
 
   width: 0,
   height: 0,
@@ -36,9 +36,6 @@ export default Ember.Component.extend({
   style: computed('width', 'height', function () {
     let width = this.get('width');
     let height = this.get('height');
-
-    // We can use this action for sending information about window size.
-    this.sendAction('windowResized', width, height);
 
     // http://emberjs.com/deprecations/v1.x/#toc_binding-style-attributes
     return new Handlebars.SafeString(`width: ${width}px; height: ${height}px`);
@@ -76,8 +73,15 @@ export default Ember.Component.extend({
   },
 
   _updateSize() {
-    // jQuery gives more accurate size.
-    this.set('width', $(window).width());
-    this.set('height', $(window).height());
+    // jQuery return the  accurate size.
+    const width = $(window).width();
+    const height = $(window).height();
+
+    this.set('width', width);
+    this.set('height', height);
+
+    // We can use this action for sending information about window size.
+    // Without run once, this action would trigger twice.
+    run.once(() => this.sendAction('windowResized', width, height));
   },
 });

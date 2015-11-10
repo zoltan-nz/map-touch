@@ -1,12 +1,11 @@
-{{#body-area mouseMoved='mouseMoved' windowResized='windowResized'}}
+{{#movable-box}}
+  <span>X: {{mouseX}}px</span><br>
+  <span>Y: {{mouseY}}px</span><br>
+  <span>Window Width: {{windowWidth}}px</span><br>
+  <span>Window Height: {{windowHeight}}px</span>
+{{/movable-box}}
 
-  {{#movable-box}}
-    <span>X: {{mouseX}}px</span><br>
-    <span>Y: {{mouseY}}px</span><br>
-    <span>Window Width: {{windowWidth}}px</span><br>
-    <span>Window Height: {{windowHeight}}px</span>
-  {{/movable-box}}
+{{#drawing-area mouseMoved='mouseMoved' windowResized='windowResized'}}
 
+{{/drawing-area}}
 
-
-{{/body-area}}
