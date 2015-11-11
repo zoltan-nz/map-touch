@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { $, computed, Handlebars, run } = Ember;
+const { $, computed, Handlebars, run: {once} } = Ember;
 
 export default Ember.Component.extend({
 
@@ -82,6 +82,6 @@ export default Ember.Component.extend({
 
     // We can use this action for sending information about window size.
     // Without run once, this action would trigger twice.
-    run.once(() => this.sendAction('windowResized', width, height));
-  },
+    once(() => this.sendAction('windowResized', width, height));
+  }
 });
