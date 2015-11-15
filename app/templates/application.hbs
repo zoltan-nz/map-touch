@@ -1,11 +1,15 @@
-{{#movable-box x=5 y=5 width=200 height=300}}
+{{#movable-box x=5 y=5 width=200 height=148}}
   <span>Mouse X: {{mouseX}}px</span><br>
   <span>Mouse Y: {{mouseY}}px</span><br>
   <span>Window Width: {{windowWidth}}px</span><br>
   <span>Window Height: {{windowHeight}}px</span>
+  <span>Touches: {{model.length}}</span>
 {{/movable-box}}
 
 {{#drawing-area mouseMoved='mouseMoved' windowResized='windowResized'}}
-
+  {{touch-renderer width=windowWidth height=windowHeight touches=touches clickWithCoordinate='touched'}}
 {{/drawing-area}}
+
+<button class="btn btn-danger btn-delete" {{action 'deleteAllTouch'}}>Delete All</button>
+
 

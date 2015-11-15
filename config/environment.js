@@ -4,6 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'map-touch',
     environment: environment,
+    firebase: 'https://map-touch.firebaseio.com/',
     baseURL: '/',
     locationType: 'auto',
 

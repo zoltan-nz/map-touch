@@ -18,9 +18,9 @@ export default Ember.Component.extend({
   width: 0,
   height: 0,
 
-  init(...args) {
+  init() {
     // This is mandatory during initialization of Component.
-    this._super(...args);
+    this._super(...arguments);
 
     // Setup the default size.
     this._updateSize();
@@ -30,7 +30,6 @@ export default Ember.Component.extend({
     this.get('resizeService').on('debouncedDidResize', (/*event*/) => {
       this._updateSize();
     });
-
   },
 
   style: computed('width', 'height', function () {
@@ -42,13 +41,6 @@ export default Ember.Component.extend({
   }),
 
   // ** EVENTS **
-
-  click(e) {
-    let x = e.clientX;
-    let y = e.clientY;
-
-    console.log('clicked:', x, y);
-  },
 
   mouseMove(e) {
     let x = e.clientX;
