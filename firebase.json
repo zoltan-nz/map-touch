@@ -1,0 +1,8 @@
+{
+  "firebase": "map-touch",
+  "public": "dist",
+  "rewrites": [{
+    "source": "**",
+    "destination": "/index.html"
+  }]
+}

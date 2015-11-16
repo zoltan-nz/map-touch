@@ -13,7 +13,7 @@
     "bootstrap-sass": "~3.3.5",
     "qunit": "~1.19.0",
     "firebase": "^2.1.0",
-    "d3": "3.5.9",
+    "d3": "~3.5.9",
     "moment": ">= 2.10.6",
     "moment-timezone": ">= 0.1.0"
   }

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import d3 from 'd3';
 
 const { run: {once} } = Ember;
 
@@ -25,9 +26,9 @@ export default Ember.Component.extend({
 
   renderDot(x, y) {
     let ctx = this.get('ctx');
-    ctx.fillStyle = "#000000";
+    ctx.fillStyle = '#00a0e3';
     ctx.beginPath();
-    ctx.arc(x, y, 10, 0, 2 * Math.PI, true);
+    ctx.arc(x, y, 5, 0, 2 * Math.PI, true);
     ctx.fill();
   },
 
@@ -67,7 +68,7 @@ export default Ember.Component.extend({
       // Later we just render the latest touches.
       let latestTouch = this.get('touches.lastObject');
       this.renderDot(latestTouch.get('x'), latestTouch.get('y'));
-    })
+    });
   }),
 
   click(e) {
