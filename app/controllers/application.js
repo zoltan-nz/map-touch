@@ -1,26 +1,30 @@
 import Ember from 'ember';
 
+const {
+        run: {once}
+        } = Ember;
+
 export default Ember.Controller.extend({
 
   mouseX: 0,
   mouseY: 0,
 
-  windowWidth: 0,
+  windowWidth:  0,
   windowHeight: 0,
 
   touches: null,
 
   actions: {
-    mouseMoved(x,y) {
+    mouseMoved(x, y) {
       this.set('mouseX', x);
       this.set('mouseY', y);
     },
 
-    touched(x,y) {
+    touched(x, y) {
       this.store.createRecord('touch', {x: x, y: y}).save();
     },
 
-    windowResized(x,y) {
+    windowResized(x, y) {
       this.set('windowWidth', x);
       this.set('windowHeight', y);
     },
@@ -33,9 +37,9 @@ export default Ember.Controller.extend({
 
   // Firebase doesn't support isLoaded, we have to update our model
   // only when all data downloaded
-  modelChanged: Ember.observer('model.[]', function() {
+  modelChanged: Ember.observer('model.[]', function () {
     if (this.get('model.length') > 0) {
-      Ember.run.once(() => this.set('touches', this.get('model')));
+      once(() => this.set('touches', this.get('model')));
     }
   })
 

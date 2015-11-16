@@ -4,25 +4,29 @@ const { computed, Handlebars: {SafeString}, run: {once} } = Ember;
 
 export default Ember.Component.extend({
 
-  // Default values
-  width: 200,
-  height: 200,
-
-  x: 300,
-  y: 300,
-
   draggable: true,
 
   attributeBindings: ['style', 'draggable'],
 
-  style: computed('width', 'height', 'x', 'y', function () {
+  style: computed('width', 'height', 'left', 'top', 'right', 'bottom', function () {
     const width = this.get('width');
     const height = this.get('height');
-    const x = this.get('x');
-    const y = this.get('y');
+    let left = this.get('left');
+    let right = this.get('right');
+    let top = this.get('top');
+    let bottom = this.get('bottom');
+
+    let styleString = `position: fixed; width: ${width}px; heigth: ${height}px;`;
+    let positionX = '';
+    let positionY = '';
+
+    if (!!left) {positionX = `left: ${left}px;`; this.set('right', null); right = null;}
+    if (!!right) {positionX = `right: ${right}px;`; this.set('left', null); left = null;}
+    if (!!top) {positionY = `top: ${top}px;`; this.set('bottom', null); bottom = null;}
+    if (!!bottom) {positionY = `bottom: ${bottom}px;`; this.set('top', null); top = null;}
 
     // http://emberjs.com/deprecations/v1.x/#toc_binding-style-attributes
-    return new SafeString(`width: ${width}px; height: ${height}px; position: fixed; top:${y}px; left:${x}px`);
+    return new SafeString(`${styleString} ${positionX} ${positionY}`);
   }),
 
   // Great article about drag events: http://tutorials.jenkov.com/html5/drag-and-drop.html
@@ -73,7 +77,7 @@ export default Ember.Component.extend({
     const newX = clientX - offsetX;
     const newY = clientY - offsetY;
 
-    this.set('x', newX);
-    this.set('y', newY);
+    this.set('left', newX);
+    this.set('top', newY);
   }
 });

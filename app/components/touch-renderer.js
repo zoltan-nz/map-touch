@@ -34,6 +34,8 @@ export default Ember.Component.extend({
   renderAllTouches() {
     let touches = this.get('touches');
 
+    if (!touches) return;
+
     touches.forEach((touch) => {
       this.renderDot(touch.get('x'), touch.get('y'));
     });
@@ -57,6 +59,11 @@ export default Ember.Component.extend({
         return this.renderAllTouches();
       }
 
+      // After delete we have to clean the canvas
+      if (this.get('touches.length') === 0) {
+        return this.clearCanvas();
+      }
+
       // Later we just render the latest touches.
       let latestTouch = this.get('touches.lastObject');
       this.renderDot(latestTouch.get('x'), latestTouch.get('y'));
@@ -67,14 +74,18 @@ export default Ember.Component.extend({
     let x = e.clientX;
     let y = e.clientY;
 
-    this.renderDot(x,y);
-
     this.sendAction('clickWithCoordinate', x, y);
   },
 
   _setupCtx() {
     let ctx = this.get('element').getContext('2d');
     this.set('ctx', ctx);
+  },
+
+  clearCanvas() {
+    let ctx = this.get('ctx');
+    let canvas = ctx.canvas;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 
 });
