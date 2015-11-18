@@ -1,8 +1,6 @@
 import Ember from 'ember';
 
-const {
-        run: {once}
-        } = Ember;
+const { run: {once}, observer } = Ember;
 
 export default Ember.Controller.extend({
 
@@ -37,7 +35,7 @@ export default Ember.Controller.extend({
 
   // Firebase doesn't support isLoaded, we have to update our model
   // only when all data downloaded
-  modelChanged: Ember.observer('model.[]', function () {
+  modelChanged: observer('model.[]', function () {
     if (this.get('model.length') > 0) {
       once(() => this.set('touches', this.get('model')));
     }

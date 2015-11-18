@@ -10,6 +10,16 @@
   {{touch-renderer width=windowWidth height=windowHeight touches=touches clickWithCoordinate='touched'}}
 {{/drawing-area}}
 
-<button class="btn btn-danger btn-delete" {{action 'deleteAllTouch'}}>Delete All</button>
-
 {{online-counter}}
+
+{{#movable-box left=5 bottom=1 width=400}}
+  <strong>Features:</strong>
+
+    <p>You can click anywhere on the "map" area. (We will draw the map later.)</p>
+    <p>New dot appears in the canvas. Coordinates are saved in the database and broadcasted to other open client, so the dot will appear there as well automatically.</p>
+    <p>We can see how many new session started in the last one minutes, the counter in the corner.</p>
+    <p>You can move these boxes around in Chrome.</p>
+  <p>You can delete all dots with the button below.</p>
+
+  <button class="btn btn-danger center-block" {{action 'deleteAllTouch'}}>Delete All</button>
+{{/movable-box}}
