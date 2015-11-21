@@ -18,9 +18,9 @@ export default Ember.Component.extend({
 
     let store = this.get('store');
 
-    store.findAll('ping').then((all) => {
-      this.set('model', all);
-    });
+    store.findAll('ping').then(all =>
+      this.set('model', all)
+    );
 
     let now = moment();
 
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
 
     let oneMinuteAgo = moment().subtract(moment.duration({minutes: 1}));
 
-    return model.filter((session) => moment(session.get('updatedAt')) > oneMinuteAgo);
+    return model.filter(session => moment(session.get('updatedAt')) > oneMinuteAgo);
   })
 
 });

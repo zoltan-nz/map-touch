@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import d3 from 'd3';
 
 const { run: {once} } = Ember;
 
@@ -11,8 +10,6 @@ export default Ember.Component.extend({
   widthNotNull: Ember.computed.gt('width', 0),
   heightNotNull: Ember.computed.gt('height', 0),
   sizeIsReady: Ember.computed.and('widthNotNull', 'heightNotNull'),
-
-  allTouchesRendered: false,
 
   // We will use this for canvas context.
   ctx: null,
@@ -35,13 +32,11 @@ export default Ember.Component.extend({
   renderAllTouches() {
     let touches = this.get('touches');
 
-    if (!touches) return;
-
+    console.log('render all', touches.get('length'));
+    this._clearCanvas();
     touches.forEach((touch) => {
       this.renderDot(touch.get('x'), touch.get('y'));
     });
-
-    this.set('allTouchesRendered', true);
   },
 
   // Reassign context if size changed.
@@ -54,28 +49,18 @@ export default Ember.Component.extend({
   }),
 
   touchesChanged: Ember.observer('touches.[]', function() {
-    once(() => {
-      // First time, we have to render all dots on the screen.
-      if (!this.get('allTouchesRendered')) {
-        return this.renderAllTouches();
+    Ember.run.once(() => {
+        console.log('touches changed', this.get('touches.length'));
+        this.renderAllTouches();
       }
-
-      // After delete we have to clean the canvas
-      if (this.get('touches.length') === 0) {
-        return this.clearCanvas();
-      }
-
-      // Later we just render the latest touches.
-      let latestTouch = this.get('touches.lastObject');
-      this.renderDot(latestTouch.get('x'), latestTouch.get('y'));
-    });
+    );
   }),
 
   click(e) {
-    let x = e.clientX;
-    let y = e.clientY;
+    let x = e.offsetX;
+    let y = e.offsetY;
 
-    this.sendAction('clickWithCoordinate', x, y);
+    this.sendAction('clickWithCoordinates', x, y);
   },
 
   _setupCtx() {
@@ -83,9 +68,10 @@ export default Ember.Component.extend({
     this.set('ctx', ctx);
   },
 
-  clearCanvas() {
+  _clearCanvas() {
     let ctx = this.get('ctx');
     let canvas = ctx.canvas;
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 

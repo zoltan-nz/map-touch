@@ -7,7 +7,7 @@
 {{/movable-box}}
 
 {{#drawing-area mouseMoved='mouseMoved' windowResized='windowResized'}}
-  {{touch-renderer width=windowWidth height=windowHeight touches=touches clickWithCoordinate='touched'}}
+  {{touch-renderer width=windowWidth height=windowHeight touches=model clickWithCoordinates='saveTouch'}}
 {{/drawing-area}}
 
 {{online-counter}}
