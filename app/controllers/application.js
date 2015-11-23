@@ -8,7 +8,10 @@ export default Ember.Controller.extend({
   windowWidth:  0,
   windowHeight: 0,
 
-  touches: null,
+  downloadedModel: [],
+
+  lastTouch: Ember.computed.alias('model.lastObject'),
+  pulseTouchList: [],
 
   actions: {
     mouseMoved(x, y) {
@@ -20,5 +23,17 @@ export default Ember.Controller.extend({
       this.set('windowWidth', x);
       this.set('windowHeight', y);
     }
-  }
+  },
+
+  lastTouchChanged: Ember.observer('lastTouch', function() {
+    let lastTouch = this.get('lastTouch');
+
+    this.get('pulseTouchList').pushObject(this.get('lastTouch'));
+
+    Ember.run.later(this, () => {
+      this.get('pulseTouchList').removeObject(lastTouch);
+    }, 10000);
+
+  })
+
 });

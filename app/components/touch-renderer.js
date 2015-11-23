@@ -32,7 +32,6 @@ export default Ember.Component.extend({
   renderAllTouches() {
     let touches = this.get('touches');
 
-    console.log('render all', touches.get('length'));
     this._clearCanvas();
     touches.forEach((touch) => {
       this.renderDot(touch.get('x'), touch.get('y'));
@@ -50,18 +49,10 @@ export default Ember.Component.extend({
 
   touchesChanged: Ember.observer('touches.[]', function() {
     Ember.run.once(() => {
-        console.log('touches changed', this.get('touches.length'));
         this.renderAllTouches();
       }
     );
   }),
-
-  click(e) {
-    let x = e.offsetX;
-    let y = e.offsetY;
-
-    this.sendAction('clickWithCoordinates', x, y);
-  },
 
   _setupCtx() {
     let ctx = this.get('element').getContext('2d');

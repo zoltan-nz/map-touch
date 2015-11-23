@@ -6,8 +6,11 @@
   <span>Touches: {{model.length}}</span>
 {{/movable-box}}
 
-{{#drawing-area mouseMoved='mouseMoved' windowResized='windowResized'}}
-  {{touch-renderer width=windowWidth height=windowHeight touches=model clickWithCoordinates='saveTouch'}}
+{{#drawing-area mouseMoved='mouseMoved' windowResized='windowResized' clickWithCoordinates='saveTouch'}}
+  {{#each pulseTouchList as |lastTouch|}}
+    {{pulse-circle x=lastTouch.x y=lastTouch.y}}
+  {{/each}}
+  {{touch-renderer width=windowWidth height=windowHeight touches=model}}
 {{/drawing-area}}
 
 {{online-counter}}
