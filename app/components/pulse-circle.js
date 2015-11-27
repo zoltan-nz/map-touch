@@ -1,5 +1,5 @@
 import Ember from 'ember';
-const { $, computed, Handlebars: {SafeString}, run: {once} } = Ember;
+const { computed, Handlebars: {SafeString} } = Ember;
 
 export default Ember.Component.extend({
   // Source: http://bl.ocks.org/chiester/11267307

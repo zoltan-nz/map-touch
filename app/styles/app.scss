@@ -5,11 +5,13 @@ html {
   overflow-y: scroll;
 }
 
+body {
+  padding-top: 10px;
+}
+
 .drawing-area {
   background-color: $gray-lighter;
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   z-index: -10;
   cursor: crosshair;
 }

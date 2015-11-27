@@ -1,0 +1,28 @@
+{{#movable-box left=300 bottom=5 width=200 height=148}}
+  <span>Mouse X: {{mouseX}}px</span><br>
+  <span>Mouse Y: {{mouseY}}px</span><br>
+  <span>Window Width: {{windowWidth}}px</span><br>
+  <span>Window Height: {{windowHeight}}px</span>
+  <span>Touches: {{model.length}}</span>
+{{/movable-box}}
+
+{{#drawing-area mouseMoved='mouseMoved' windowResized='windowResized' clickWithCoordinates='saveTouch'}}
+  {{#each pulseTouchList as |lastTouch|}}
+    {{pulse-circle x=lastTouch.x y=lastTouch.y}}
+  {{/each}}
+  {{touch-renderer width=windowWidth height=windowHeight touches=model}}
+{{/drawing-area}}
+
+{{online-counter}}
+
+{{#movable-box left=5 bottom=5 width=200}}
+  <strong>Features:</strong>
+
+    <p><small>You can click anywhere on the "map" area. (We will draw the map later.)</small></p>
+    <p><small>New dot appears in the canvas. Coordinates are saved in the database and broadcasted to other open client, so the dot will appear there as well automatically.</small></p>
+    <p><small>We can see how many new session started in the last one minutes, the counter in the corner.</small></p>
+    <p><small>You can move these boxes around in Chrome.</small></p>
+    <p><small>You can delete all dots with the button below.</small></p>
+
+  <button class="btn btn-danger center-block" {{action 'deleteAllTouch'}}>Delete All</button>
+{{/movable-box}}

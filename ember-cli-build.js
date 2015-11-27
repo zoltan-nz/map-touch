@@ -7,6 +7,10 @@ module.exports = function(defaults) {
     // Add options here
   });
 
+  app.import('bower_components/topojson/topojson.js');
+  // ember generate vendor-shim topojson
+  app.import('vendor/shims/topojson.js');
+
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //

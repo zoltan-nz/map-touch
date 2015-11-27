@@ -31,7 +31,7 @@ export default Ember.Component.extend({
 
   liveUsers: Ember.computed('model.[]', function() {
     let model = this.get('model');
-    if (!model) return;
+    if (!model) { return; }
 
     let oneMinuteAgo = moment().subtract(moment.duration({minutes: 1}));
 

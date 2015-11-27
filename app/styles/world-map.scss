@@ -1,0 +1,22 @@
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-opacity: .5;
+  stroke-width: .5px;
+  pointer-events: none;
+}
+
+.timezones {
+  fill: #222;
+}
+
+.timezones :hover {
+  fill: orange;
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+  pointer-events: none;
+}
