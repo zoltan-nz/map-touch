@@ -1,5 +1,6 @@
 @import 'bootstrap';
 @import 'pulse';
+@import 'world-map';
 
 html {
   overflow-y: scroll;
@@ -12,7 +13,7 @@ body {
 .drawing-area {
   background-color: $gray-lighter;
   position: relative;
-  z-index: -10;
+  z-index: 1;
   cursor: crosshair;
 }
 
@@ -28,4 +29,8 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
+}
+
+.movable-box {
+  z-index: 2;
 }

@@ -5,7 +5,7 @@ const { computed, Handlebars: {SafeString}, run: {once} } = Ember;
 export default Ember.Component.extend({
 
   draggable: true,
-
+  classNames: ['movable-box'],
   attributeBindings: ['style', 'draggable'],
 
   style: computed('width', 'height', 'left', 'top', 'right', 'bottom', function () {

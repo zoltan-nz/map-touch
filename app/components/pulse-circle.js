@@ -20,6 +20,18 @@ export default Ember.Component.extend({
     return new SafeString(`transform-origin: ${x}px ${y}px;`);
   }),
 
+  xpx: computed('x', function() {
+    let x = this.get('x');
+    if (!x) return '';
+    return `${x}px`;
+  }),
+
+  ypx: computed('y', function() {
+    let y = this.get('y');
+    if (!y) return '';
+    return `${y}px`;
+  }),
+
   click() {
     // Allow bubbling up the click event.
     return true;

@@ -16,19 +16,19 @@ export default Ember.Component.extend({
 
     let el = this.get('element');
 
-    var width  = 1024,
+    let width  = 1024,
         height = 960;
 
-    var projection = d3.geo.mercator()
+    let projection = d3.geo.mercator()
       .scale(width / 2 / Math.PI)
       .translate([width / 2, height / 2])
       .precision(0.1);
 
-    var path = d3.geo.path()
+    let path = d3.geo.path()
       .projection(projection);
 
-    var graticule = d3.geo.graticule();
-    var svg = d3.select(el);
+    let graticule = d3.geo.graticule();
+    let svg = d3.select(el);
 
     svg.append("path")
       .datum(graticule)
