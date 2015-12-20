@@ -1,5 +1,10 @@
 import Ember from 'ember';
-const { computed, Handlebars: {SafeString} } = Ember;
+const {
+  computed,
+  Handlebars: {
+    SafeString
+  }
+} = Ember;
 
 export default Ember.Component.extend({
   // Source: http://bl.ocks.org/chiester/11267307
@@ -22,13 +27,17 @@ export default Ember.Component.extend({
 
   xpx: computed('x', function() {
     let x = this.get('x');
-    if (!x) return '';
+    if (!x) {
+      return '';
+    }
     return `${x}px`;
   }),
 
   ypx: computed('y', function() {
     let y = this.get('y');
-    if (!y) return '';
+    if (!y) {
+      return '';
+    }
     return `${y}px`;
   }),
 

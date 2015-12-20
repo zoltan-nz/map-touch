@@ -21,7 +21,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.2.0",
     "ember-bootstrap-nav-link": "0.1.0",
-    "ember-cli": "1.13.13",
+    "ember-cli": "2.2.0-beta.3",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-babel": "^5.1.5",
     "ember-cli-bootstrap-sassy": "0.0.18",
@@ -44,6 +44,6 @@
     "ember-moment": "4.1.0",
     "ember-resize": "0.0.10",
     "ember-resolver": "2.0.3",
-    "emberfire": "1.6.1"
+    "emberfire": "1.6.3"
   }
 }
